@@ -118,6 +118,11 @@ func (c *Client) WaitUntilInstanceRunning(ctx context.Context, input *DescribeIn
 				Expected: "running",
 			},
 			{
+				State:   aws.SuccessWaiterState,
+				Matcher: aws.PathAllWaiterMatch, Argument: "ReservationSet[].InstancesSet[].NetworkInterfaceSet[].Status",
+				Expected: "in-use",
+			},
+			{
 				State:    aws.RetryWaiterState,
 				Matcher:  aws.ErrorWaiterMatch,
 				Expected: "Client.InvalidParameterNotFound.Instance",
